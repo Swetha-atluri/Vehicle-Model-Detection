@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniDetect AI - Vehicle Detection Hub</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="bg-gradient-glow"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">
+                <i class="fa-solid fa-microchip logo-icon"></i>
+                <span class="logo-text">OMNI<span class="highlight">DETECT</span></span>
+                <span class="badge">v8.0</span>
+            </div>
+            <div class="header-status">
+                <span class="status-indicator online"></span>
+                <span class="status-label">AI Engine Active</span>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Content -->
+        <main class="dashboard-grid">
+            
+            <!-- Left Side: Upload & Control Panel -->
+            <section class="dashboard-panel upload-panel">
+                <div class="panel-header">
+                    <i class="fa-solid fa-cloud-arrow-up panel-icon"></i>
+                    <h2>Image Input</h2>
+                </div>
+                
+                <div class="drop-zone" id="drop-zone">
+                    <div class="drop-zone-content">
+                        <i class="fa-solid fa-images upload-preview-icon"></i>
+                        <p class="drop-zone-text">Drag & drop your vehicle image here</p>
+                        <span class="or-divider">or</span>
+                        <label for="file-input" class="btn btn-secondary">
+                            Browse Files
+                        </label>
+                        <input type="file" id="file-input" accept="image/*" style="display: none;">
+                    </div>
+                    <img id="image-preview" class="image-preview" src="" alt="Preview">
+                </div>
+
+                <div class="control-actions">
+                    <button id="btn-detect" class="btn btn-primary btn-block" disabled>
+                        <span id="btn-text"><i class="fa-solid fa-wand-magic-sparkles"></i> Run Detection</span>
+                        <div id="btn-spinner" class="spinner" style="display: none;"></div>
+                    </button>
+                    <button id="btn-clear" class="btn btn-outline btn-block" style="display: none;">
+                        <i class="fa-solid fa-trash-can"></i> Clear Image
+                    </button>
+                </div>
+            </section>
+
+            <!-- Right Side: Results & Analytics -->
+            <section class="dashboard-panel results-panel">
+                <div class="panel-header">
+                    <i class="fa-solid fa-chart-bar panel-icon"></i>
+                    <h2>Analysis Dashboard</h2>
+                </div>
+
+                <!-- Empty State -->
+                <div id="results-empty" class="results-empty-state">
+                    <div class="empty-icon-wrapper">
+                        <i class="fa-solid fa-radar empty-icon pulsing"></i>
+                    </div>
+                    <h3>Awaiting Data Input</h3>
+                    <p>Upload a vehicle image on the left and trigger detection to see real-time bounding boxes, category logs, and analytics.</p>
+                </div>
+
+                <!-- Active Results state -->
+                <div id="results-active" class="results-container" style="display: none;">
+                    
+                    <!-- Stats Grid -->
+                    <div class="stats-grid">
+                        <div class="stat-card" data-class="car">
+                            <span class="stat-label">Cars</span>
+                            <span class="stat-value" id="count-car">0</span>
+                        </div>
+                        <div class="stat-card" data-class="truck">
+                            <span class="stat-label">Trucks</span>
+                            <span class="stat-value" id="count-truck">0</span>
+                        </div>
+                        <div class="stat-card" data-class="bus">
+                            <span class="stat-label">Buses</span>
+                            <span class="stat-value" id="count-bus">0</span>
+                        </div>
+                        <div class="stat-card" data-class="motorcycle">
+                            <span class="stat-label">Motorcycles</span>
+                            <span class="stat-value" id="count-motorcycle">0</span>
+                        </div>
+                    </div>
+
+                    <!-- Output Tabs -->
+                    <div class="tab-container">
+                        <div class="tab-headers">
+                            <button class="tab-btn active" data-tab="visualized">Visualized Output</button>
+                            <button class="tab-btn" data-tab="detections-log">Detections Log</button>
+                        </div>
+                        
+                        <div class="tab-contents">
+                            <!-- Tab: Visualized Output -->
+                            <div class="tab-pane active" id="tab-visualized">
+                                <div class="image-output-wrapper">
+                                    <img id="annotated-image" src="" alt="Annotated vehicle detection results">
+                                </div>
+                            </div>
+                            
+                            <!-- Tab: Detections Log -->
+                            <div class="tab-pane" id="tab-detections-log">
+                                <div class="table-wrapper">
+                                    <table class="detections-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Class</th>
+                                                <th>Confidence</th>
+                                                <th>Bounding Box [x1, y1, x2, y2]</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="detections-tbody">
+                                            <!-- Dynamic entries -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Analytics Footer -->
+                    <div class="analytics-footer">
+                        <div class="analytics-stat">
+                            <i class="fa-solid fa-gauge-high"></i>
+                            <span class="lbl">Objects Count:</span>
+                            <strong id="analytics-total-count">0</strong>
+                        </div>
+                        <div class="analytics-stat">
+                            <i class="fa-solid fa-images"></i>
+                            <span class="lbl">Resolution:</span>
+                            <strong id="analytics-resolution">0 x 0</strong>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </main>
+        
+        <!-- Footer -->
+        <footer class="app-footer-bar">
+            <p>OmniDetect Engine powered by YOLOv8 Nano & FastAPI. Built with styling excellence.</p>
+        </footer>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
