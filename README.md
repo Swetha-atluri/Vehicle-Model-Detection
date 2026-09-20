@@ -42,36 +42,7 @@ OmniDetect AI is a modern, responsive Web application designed to perform real-t
 
 ---
 
-## 🚀 Getting Started
 
-Follow these steps to run the application on your local machine:
-
-### 1. Prerequisite: Clone the Repository
-```bash
-git clone https://github.com/Swetha-atluri/Vehicle-Model-Detection.git
-cd Vehicle-Model-Detection
-```
-
-### 2. Set Up a Virtual Environment (Windows)
-Create a Python virtual environment to isolate the project dependencies:
-```powershell
-python -m venv .venv
-.venv\Scripts\Activate.ps1
-```
-
-*(On macOS/Linux: `source .venv/bin/activate`)*
-
-### 3. Install Dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Start the Application
-Run the FastAPI application locally using Uvicorn:
-```bash
-python -m uvicorn main:app --host 127.0.0.1 --port 8000
-```
-*Note: On the first run, the server will automatically download the YOLOv8 weights (`yolov8n.pt`).*
 
 ### 5. Access the Web Dashboard
 Open your browser and navigate to:
