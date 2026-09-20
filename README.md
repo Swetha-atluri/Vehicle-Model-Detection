@@ -1,4 +1,4 @@
-# OmniDetect AI - Vehicle Detection Hub 🚗🚌🏍️
+# OmniDetect AI - Vehicle Detection Hub 🚗
 
 OmniDetect AI is a modern, responsive Web application designed to perform real-time vehicle detection and categorization. Utilizing a FastAPI backend powered by the **YOLOv8** object detection model and a glassmorphism frontend dashboard, the application identifies and counts cars, trucks, buses, and motorcycles in uploaded images.
 
@@ -44,8 +44,4 @@ OmniDetect AI is a modern, responsive Web application designed to perform real-t
 
 
 
-### 5. Access the Web Dashboard
-Open your browser and navigate to:
-👉 **[http://127.0.0.1:8000](http://127.0.0.1:8000)**
 
-Upload any vehicle image (JPEG, PNG, WebP) and click **Run Detection**.
