@@ -1,47 +1,84 @@
-# OmniDetect AI - Vehicle Detection Hub 🚗
+# OmniDetect AI — Vehicle Detection Hub
 
-OmniDetect AI is a modern, responsive Web application designed to perform real-time vehicle detection and categorization. Utilizing a FastAPI backend powered by the **YOLOv8** object detection model and a glassmorphism frontend dashboard, the application identifies and counts cars, trucks, buses, and motorcycles in uploaded images.
-
----
-
-## 🌟 Features
-
-- **Futuristic Web Dashboard**: Glassmorphism design with sleek slate backgrounds and neon highlights (rose, emerald, amber, blue).
-- **Drag & Drop Upload**: Interactive image upload panel with immediate client-side preview.
-- **YOLOv8 Nano Core**: Fast and accurate object detection filtered specifically for vehicle classes.
-- **Visualized Output**: Bounding boxes and confidence percentages drawn on the result image using custom class colors.
-- **Detections Log**: A tabbed interactive logs table displaying coordinates, class labels, and confidence progress bars.
-- **Robust Image Parsing**: Uses Pillow (PIL) for decoding, supporting JPEGs, transparent PNGs, and modern WebP formats seamlessly.
+A real-time vehicle detection and classification web application powered by **YOLOv8** and **FastAPI**. The system analyzes uploaded images, detects vehicles, identifies their classes, and provides confidence scores along with visualized detection results.
 
 ---
 
-## 🛠️ Technology Stack
+## Overview
 
-- **Backend**: FastAPI, Uvicorn (ASGI server)
-- **AI Core**: Ultralytics YOLOv8, PyTorch
-- **Image Processing**: OpenCV (headless), Pillow (PIL), NumPy
-- **Frontend**: HTML5, Vanilla CSS3, JavaScript, FontAwesome Icons
+**OmniDetect AI** is a computer vision application designed to detect and categorize vehicles from images.
+
+The application uses the **YOLOv8 object detection model** to identify vehicle classes such as cars, trucks, buses, and motorcycles. A **FastAPI** backend handles image processing and inference, while a responsive web dashboard provides an interactive interface for uploading images and viewing detection results.
+
+The system visualizes detected objects using bounding boxes and confidence scores, while also providing a structured detection log containing class labels and coordinates.
 
 ---
 
-## 📂 Project Structure
+## Key Features
+
+- **Real-Time Vehicle Detection**  
+  Detects multiple vehicles within uploaded images using YOLOv8.
+
+- **Vehicle Classification**  
+  Identifies supported vehicle categories including cars, trucks, buses, and motorcycles.
+
+- **Interactive Web Dashboard**  
+  Provides a responsive interface for uploading images and viewing detection results.
+
+- **Drag-and-Drop Upload**  
+  Supports convenient image selection with client-side preview.
+
+- **Bounding Box Visualization**  
+  Displays detected vehicles with bounding boxes, class labels, and confidence scores.
+
+- **Detection Log**  
+  Presents structured detection information including object classes, coordinates, and confidence values.
+
+- **Multiple Image Formats**  
+  Supports JPEG, PNG, and WebP image formats through Pillow.
+
+- **Fast API-Based Inference**  
+  Uses FastAPI and Uvicorn to provide an efficient backend for model inference.
+
+---
+
+## System Architecture
 
 ```text
-├── static/
-│   ├── css/
-│   │   └── style.css       # Custom dashboard styling
-│   ├── js/
-│   │   └── app.js          # Client-side API requests and UI state
-│   └── index.html          # Web dashboard layout
-├── .gitignore              # Ignores venv, caches, and weights
-├── main.py                 # FastAPI backend entry point
-├── README.md               # Documentation
-├── requirements.txt        # Python dependency packages list
-└── test_api.py             # Script to verify API endpoint locally
-```
-
----
-
-
-
-
+                    User
+                     |
+                     v
+          +----------------------+
+          |   Web Dashboard      |
+          | HTML / CSS / JS      |
+          +----------+-----------+
+                     |
+                     | Image Upload
+                     v
+          +----------------------+
+          |    FastAPI Backend   |
+          +----------+-----------+
+                     |
+                     v
+          +----------------------+
+          |    Image Processing  |
+          | OpenCV / Pillow      |
+          +----------+-----------+
+                     |
+                     v
+          +----------------------+
+          |      YOLOv8 Model    |
+          |  Vehicle Detection   |
+          +----------+-----------+
+                     |
+                     v
+          +----------------------+
+          | Detection Results    |
+          | Class + Confidence   |
+          | Bounding Coordinates |
+          +----------+-----------+
+                     |
+                     v
+          +----------------------+
+          | Visualized Dashboard |
+          +----------------------+
